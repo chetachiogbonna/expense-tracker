@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  body {
+    padding-top: 100px;
+  }
+
+  h3 {
+    color: black;
+  }
+
+  label {
+    text-decoration: none;
+  }
+
+  .add-expense-input {
+    border: 1px solid black;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    padding-left: 10px;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  .edit-expense-input {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 80px;
+    height: 40px;
+    padding-left: 10px;
+    margin-bottom: 12px;
+  }
+
+  .edit-expense-date-input {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 125px;
+    height: 40px;
+    padding-left: 10px;
+    margin-bottom: 12px;
+  }
+
+  p {
+    @apply w-[40px] mb-[12px] md:w-[80px]
+  }
+}
