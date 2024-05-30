@@ -34,7 +34,7 @@ function ExpenseForm({ setExpenses }: { setExpenses:  Dispatch<SetStateAction<IE
 
   return (
     <form 
-      className="w-[500px] h-[530px] flex flex-col gap-10 p-10 border border-black rounded-md"
+      className="w-[500px] h-[530px] flex flex-col gap-10 p-10 border border-black rounded-md mx-auto"
       onSubmit={addExpense}  
     >
       <h2 className="text-center text-[18px] font-bold">Add Expense</h2>

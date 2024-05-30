@@ -1,5 +1,6 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import { IExpense } from "../types";
+import EditExpense from "./EditExpense";
 
 type ExpenseProps = {
   expense: IExpense,
@@ -9,13 +10,14 @@ type ExpenseProps = {
 }
 
 function Expense({ expense, setExpenses, editExpense, setEditExpense }: ExpenseProps) {
-  const [newExpanseName, setNewExpanseName] = useState(expense.name)
-    const [newExpanseCategory, setNewExpanseCategory] = useState(expense.category)
-    const [newExpanseAmount, setNewExpanseAmount] = useState(`${expense.amount || '2'}`)
-    const [newExpanseDate, setNewExpanseDate] = useState(expense.date)
-
+  
     const handleEdit = (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
+      const formData = new FormData(e.currentTarget);
+      const newExpanseName = formData.get("edited-name") as string;
+      const newExpanseCategory = formData.get("edited-category") as string;
+      const newExpanseAmount = formData.get("edited-amount") as string;
+      const newExpanseDate = formData.get("edited-date") as string;
       
       setExpenses(prevExpenses => prevExpenses.map(prevExpense => {
         return prevExpense.id === expense.id
@@ -30,60 +32,6 @@ function Expense({ expense, setExpenses, editExpense, setEditExpense }: ExpenseP
       }));
 
       setEditExpense('');
-    }
-
-    const editExpenseFunc = () => {
-      return (
-        <>
-          <input 
-            className="edit-expense-input"
-            required
-            type="text" 
-            value={newExpanseName} 
-            onChange={(e) => setNewExpanseName(e.target.value)}
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          <select
-            className="edit-expense-input"
-            value={newExpanseCategory} 
-            onChange={(e) => setNewExpanseCategory(e.target.value)} 
-            onClick={(e) => e.stopPropagation()}
-            required
-          >
-            <option value="Provision">Provision</option>
-            <option value="Ingredients">Ingredients</option>
-            <option value="Cosmetics">Cosmetics</option>
-            <option value="Utensils">Utensils</option>
-            <option value="Spices">Spices</option>
-          </select>
-
-          <input
-            className="edit-expense-input"
-            required 
-            type="number"
-            value={newExpanseAmount} 
-            onChange={(e) => setNewExpanseAmount(e.target.value)}
-            onClick={(e) => e.stopPropagation()}
-          /> 
-
-          <input 
-            className="edit-expense-date-input"
-            required
-            type="date" 
-            value={newExpanseDate} 
-            onChange={(e) => setNewExpanseDate(e.target.value)}
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          <div className="flex justify-between items-center gap-2"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button>ok</button>
-            <img src="/img/delete.png" />
-          </div>
-        </>
-      )
     }
 
     const displayExpenseFunc = () => {
@@ -122,10 +70,21 @@ function Expense({ expense, setExpenses, editExpense, setEditExpense }: ExpenseP
         onSubmit={handleEdit}
       > 
         {editExpense === expense.id
-          ? editExpenseFunc()
+          ? <EditExpense expense={expense} setEditExpense={setEditExpense} />
           : displayExpenseFunc()}
       </form>
     )
 }
+
+// Groceries
+// Food
+// Books
+// Music
+// Sports
+// Provision
+// Utensils
+// Clothing
+// Clothing
+// Rent
 
 export default Expense
